@@ -54,9 +54,10 @@ def process_image():
     # print(image.shape)
     res = mcf(image).numpy()[0].argmax()
     res = classnames[res]
+    dist = imgutils.calc_dist(image[0], res)
+    dist = round(dist*1000)/1000
     print(res)
-    dist = imgutils.calc_dist(image[0])
-    return jsonify({'message': res + f'. Altura pixeles: {dist}'}) 
+    return jsonify({'message': res + f'. Distancia: {dist} mts.'}) 
 
 @app.route('/', methods=['GET'])
 def test_get():
