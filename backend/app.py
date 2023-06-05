@@ -5,7 +5,15 @@ import numpy as np
 import base64
 from PIL import Image
 import io
+import socket
 # inbound rule to port 9000 on TCP
+
+
+def obtener_direccion_ip():
+    hostname = socket.gethostname()
+    direccion_ip = socket.gethostbyname(hostname)
+    print(direccion_ip)
+    return direccion_ip
 
 app = Flask(__name__)
 CORS(app)
@@ -26,11 +34,11 @@ def process_image():
 
     print(image.shape)
 
-    return jsonify({'message': 'si se envio la imagen'}) 
+    return jsonify({'message': 'aqui se muestra el resultado de reconocimiento'}) 
 
 @app.route('/', methods=['GET'])
 def test_get():
     return jsonify({'message': 'si hizo pa!'}) 
 
 if __name__ == '__main__':
-    app.run(host='192.168.0.8', debug=True, port=9000)
+    app.run(host=obtener_direccion_ip(), debug=True, port=9000)

@@ -7,10 +7,11 @@ const URI = 'http://192.168.0.8:9000/'
 
 const CompAnalizePhoto = () => {
     const [selectedPhoto, setSelectedPhoto] = useState(null);
+    const [resultado, setResultado] = useState('')
 
     const handleFileInputChange = (event) => {
         const file = event.target.files[0];
-        setSelectedPhoto(file);
+        setSelectedPhoto(file)
     };
 
     const handleUploadPhoto = () => {
@@ -19,12 +20,12 @@ const CompAnalizePhoto = () => {
             reader.readAsDataURL(selectedPhoto);
 
             reader.onload = async () => {
-                const base64Image = reader.result.split(',')[1]; // Obtén la cadena Base64 sin el prefijo 'data:image/png;base64,'
+                const base64Image = reader.result.split(',')[1]; // Obtener la cadena Base64 sin el prefijo 'data:image/png;base64,'
 
                 try {
                     const response = await axios.post(URI, { image: base64Image });
-                    // console.log(response.data);
-                    alert(response.data.message)
+                    // alert(response.data.message)
+                    setResultado('Resultado: ' + response.data.message)
                 } catch (error) {
                     console.error(error);
                     alert("Error del servidor: " + error)
@@ -33,22 +34,29 @@ const CompAnalizePhoto = () => {
         }
     };
     
-
     return (
         <div>
-            <h1>Tome una fotografía para su análisis</h1>
+            <h1>Visual Voice</h1>
+            <p>
+                Tome una fotografía para su análisis.
+            </p>
+            <br></br>
             <input type="file" onChange={handleFileInputChange} />
             <button onClick={handleUploadPhoto}>Analizar archivo</button>
-            <div style={{marginTop: '50px'}}></div>
+            <div style={{marginTop: '30px'}}></div>
             {
                 selectedPhoto && 
                 (
                     <div>
                         <h2>Archivo seleccionado</h2>
-                        <img height='300px' src={URL.createObjectURL(selectedPhoto)} alt="Selected" />
+                        <img height='270px' src={URL.createObjectURL(selectedPhoto)} alt="Selected" />
                     </div>
                 )
             }
+
+            <h3>
+                {resultado}
+            </h3>
         </div>
     );
 };
