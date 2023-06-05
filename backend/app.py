@@ -57,7 +57,7 @@ def process_image():
     dist = imgutils.calc_dist(image[0], res)
     dist = round(dist*1000)/1000
     print(res)
-    return jsonify({'message': res + f'. Distancia: {dist} mts.'}) 
+    return jsonify({'message': res + f'. Distancia al objeto: {dist} metros.'}) 
 
 @app.route('/', methods=['GET'])
 def test_get():

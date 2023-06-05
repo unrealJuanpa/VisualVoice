@@ -3,11 +3,19 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import { Link, Navigate, useNavigate } from "react-router-dom"
 import { useParams } from "react-router-dom";
 
+
 const URI = 'http://192.168.0.8:9000/'
 
 const CompAnalizePhoto = () => {
     const [selectedPhoto, setSelectedPhoto] = useState(null);
     const [resultado, setResultado] = useState('')
+
+    function decir(msg) {
+        const synth = window.speechSynthesis;
+        const utterThis = new SpeechSynthesisUtterance(msg);
+        utterThis.lang = 'es-ES';
+        synth.speak(utterThis);
+    }
 
     const handleFileInputChange = (event) => {
         const file = event.target.files[0];
@@ -25,7 +33,9 @@ const CompAnalizePhoto = () => {
                 try {
                     const response = await axios.post(URI, { image: base64Image });
                     // alert(response.data.message)
-                    setResultado('Resultado: ' + response.data.message)
+                    let msg = response.data.message
+                    setResultado('Resultado: ' + msg)
+                    decir('en la imágen se ha identificado a un ' + msg)
                 } catch (error) {
                     console.error(error);
                     alert("Error del servidor: " + error)
