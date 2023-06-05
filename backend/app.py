@@ -12,6 +12,7 @@ from model import Classifier
 
 mcf = Classifier()
 mcf.load_weights('modelcifar10-loss00007.h5')
+
 print('modelo cargado!')
 classnames = [
     'avión',
@@ -50,10 +51,12 @@ def process_image():
     image = base64_to_image(image)
     image = imgutils.crop_squared_and_reshape(image, (32, 32))
     image = image.astype(np.float32)[np.newaxis, ...]
-    print(image.shape)
+    # print(image.shape)
     res = mcf(image).numpy()[0].argmax()
+    res = classnames[res]
     print(res)
-    return jsonify({'message': classnames[res]}) 
+    dist = imgutils.calc_dist(image[0])
+    return jsonify({'message': res + f'. Altura pixeles: {dist}'}) 
 
 @app.route('/', methods=['GET'])
 def test_get():
