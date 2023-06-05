@@ -38,7 +38,7 @@ const CompAnalizePhoto = () => {
         <div>
             <h1>Visual Voice</h1>
             <p>
-                Tome una fotografía para su análisis.
+                Tome o suba una fotografía para analizarla
             </p>
             <br></br>
             <input type="file" onChange={handleFileInputChange} />
