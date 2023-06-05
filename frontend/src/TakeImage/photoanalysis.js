@@ -1,8 +1,5 @@
 import axios from "axios"
 import { useState, useEffect, useRef, useCallback } from "react"
-import { Link, Navigate, useNavigate } from "react-router-dom"
-import { useParams } from "react-router-dom";
-
 
 const URI = 'http://192.168.0.8:9000/'
 
@@ -20,7 +17,7 @@ const CompAnalizePhoto = () => {
     const handleFileInputChange = (event) => {
         const file = event.target.files[0];
         setSelectedPhoto(file)
-    };
+    }
 
     const handleUploadPhoto = () => {
         if (selectedPhoto) {

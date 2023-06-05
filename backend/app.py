@@ -55,7 +55,7 @@ def process_image():
     res = mcf(image).numpy()[0].argmax()
     res = classnames[res]
     dist = imgutils.calc_dist(image[0], res)
-    dist = round(dist*1000)/1000
+    dist = round(dist*10000)/10000
     print(res)
     return jsonify({'message': res + f'. Distancia al objeto: {dist} metros.'}) 
 
