@@ -25,7 +25,11 @@ def process_image():
 
     print(image.shape)
 
-    return jsonify({'objects_detected': 'si'}) 
+    return jsonify({'message': 'si se envio la imagen'}) 
+
+@app.route('/', methods=['GET'])
+def test_get():
+    return jsonify({'message': 'si hizo pa!'}) 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=9000)
+    app.run(host='192.168.0.8', debug=True, port=9000)
